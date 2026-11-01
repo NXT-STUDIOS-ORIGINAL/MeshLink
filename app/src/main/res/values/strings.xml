@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">MeshLink</string>
+
+    <!-- Navigation -->
+    <string name="nearby">Nearby</string>
+    <string name="chats">Chats</string>
+    <string name="groups">Groups</string>
+    <string name="rooms">Rooms</string>
+    <string name="settings">Settings</string>
+    <string name="nearby_devices">Nearby Devices</string>
+    <string name="private_chats">Private Chats</string>
+    <string name="public_rooms">Public Rooms</string>
+
+    <!-- Actions -->
+    <string name="scan">Scan</string>
+    <string name="new_chat">New Chat</string>
+    <string name="create_group">Create Group</string>
+    <string name="create_room">Create Room</string>
+    <string name="send">Send</string>
+    <string name="back">Back</string>
+    <string name="chat_info">Chat Info</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="message">Message</string>
+
+    <!-- Empty states -->
+    <string name="no_devices_found">No devices found</string>
+    <string name="pull_to_refresh_or_tap_scan">Pull to refresh or tap scan</string>
+    <string name="no_chats_yet">No chats yet</string>
+    <string name="start_new_conversation">Start a new conversation from Nearby</string>
+    <string name="no_groups_yet">No groups yet</string>
+    <string name="create_first_group">Create your first group</string>
+    <string name="no_rooms_yet">No rooms yet</string>
+    <string name="join_or_create_room">Join or create a public room</string>
+
+    <!-- Profile -->
+    <string name="tap_to_set_up_profile">Tap to set up profile</string>
+    <string name="tap_to_edit_profile">Tap to edit profile</string>
+
+    <!-- Settings sections -->
+    <string name="network">Network</string>
+    <string name="appearance">Appearance</string>
+    <string name="notifications">Notifications</string>
+    <string name="security">Security</string>
+    <string name="about">About</string>
+
+    <!-- Network settings -->
+    <string name="bluetooth">Bluetooth</string>
+    <string name="enable_bluetooth_discovery">Enable Bluetooth device discovery</string>
+    <string name="wifi_direct">Wi-Fi Direct</string>
+    <string name="enable_wifi_direct">Enable Wi-Fi Direct connections</string>
+    <string name="mesh_relay">Mesh Relay</string>
+    <string name="enable_mesh_relay">Relay messages for other devices</string>
+    <string name="max_hop_count">Max Hop Count</string>
+    <string name="max_hop_count_desc">Maximum number of hops for message relay</string>
+
+    <!-- Appearance settings -->
+    <string name="theme">Theme</string>
+    <string name="theme_desc">Choose app theme</string>
+
+    <!-- Notification settings -->
+    <string name="notifications">Notifications</string>
+    <string name="notifications_desc">Receive message notifications</string>
+    <string name="sound">Sound</string>
+    <string name="sound_desc">Play notification sounds</string>
+    <string name="vibration">Vibration</string>
+    <string name="vibration_desc">Vibrate on notifications</string>
+
+    <!-- Security settings -->
+    <string name="biometric_lock">Biometric Lock</string>
+    <string name="biometric_lock_desc">Require biometric to open app</string>
+    <string name="auto_lock">Auto Lock</string>
+    <string name="auto_lock_desc">Auto-lock after %d minutes of inactivity</string>
+
+    <!-- About -->
+    <string name="version">Version</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy_desc">View privacy policy</string>
+
+    <!-- Signal strength -->
+    <string name="signal_strength">Signal Strength</string>
+    <string name="start_chat">Start Chat</string>
+</resources>
