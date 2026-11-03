@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
 
 @Entity(
     tableName = "chat_members",
@@ -25,7 +24,6 @@ import kotlinx.serialization.Serializable
     ],
     indices = [Index("chatId"), Index("userId")]
 )
-@Serializable
 data class ChatMember(
     val chatId: String,
     val userId: String,
