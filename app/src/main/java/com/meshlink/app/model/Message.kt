@@ -29,7 +29,7 @@ data class Message(
     @PrimaryKey
     val id: String, // UUID
     val chatId: String,
-    val senderId: String,
+    val senderId: String?,
     val content: String, // Encrypted content
     val type: MessageType = MessageType.TEXT,
     val timestamp: Long = System.currentTimeMillis(),
