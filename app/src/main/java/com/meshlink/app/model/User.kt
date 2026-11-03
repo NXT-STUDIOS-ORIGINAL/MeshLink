@@ -2,10 +2,8 @@ package com.meshlink.app.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
 
 @Entity(tableName = "users")
-@Serializable
 data class User(
     @PrimaryKey
     val id: String, // Public key hash / device ID
