@@ -37,10 +37,10 @@ interface MessageDao {
     @Query("SELECT * FROM messages WHERE chatId = :chatId ORDER BY timestamp DESC LIMIT 1")
     fun observeLatestMessage(chatId: String): Flow<Message?>
 
-    @Query("SELECT COUNT(*) FROM messages WHERE chatId = :chatId AND status != 'READ' AND senderId != :currentUserId")
+    @Query("SELECT COUNT(*) FROM messages WHERE chatId = :chatId AND status != 'READ' AND senderId IS NOT NULL AND senderId != :currentUserId")
     suspend fun getUnreadCount(chatId: String, currentUserId: String): Int
 
-    @Query("UPDATE messages SET status = :status WHERE chatId = :chatId AND senderId != :currentUserId AND status != 'READ'")
+    @Query("UPDATE messages SET status = :status WHERE chatId = :chatId AND senderId IS NOT NULL AND senderId != :currentUserId AND status != 'READ'")
     suspend fun markAsRead(chatId: String, currentUserId: String, status: String)
 
     @Query("SELECT * FROM messages WHERE status = :status AND chatId = :chatId")
