@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -33,11 +34,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.getStringParameter
+import com.meshlink.app.MeshLinkApplication
 import com.meshlink.app.R
 import com.meshlink.app.model.Message
 import com.meshlink.app.model.MessageStatus
 import com.meshlink.app.model.MessageType
 import com.meshlink.app.model.User
+import com.meshlink.app.ui.ViewModelFactory
 import com.meshlink.app.ui.theme.MeshLinkTheme
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -45,9 +49,24 @@ import java.util.Locale
 
 @Composable
 fun ChatScreen(
-    viewModel: ChatViewModel = viewModel(),
     onBackClick: () -> Unit = {}
 ) {
+    val chatId = getStringParameter("chatId") ?: return
+    val app = LocalContext.current.applicationContext as MeshLinkApplication
+    val viewModelFactory = ViewModelFactory(app)
+    val viewModel: ChatViewModel = viewModel(
+        factory = viewModelFactory,
+        key = chatId
+    ) {
+        ChatViewModel(
+            app.chatRepository,
+            app.messageRepository,
+            app.userRepository,
+            app.networkManager,
+            chatId
+        )
+    }
+
     val chat by viewModel.chat.observeAsState()
     val messages by viewModel.messages.observeAsState()
     val isLoading by viewModel.isLoading.observeAsState()
@@ -55,7 +74,6 @@ fun ChatScreen(
     val otherUser by viewModel.otherUser.observeAsState()
 
     val lazyListState = rememberLazyListState()
-    val context = LocalContext.current
 
     val displayName = otherUser?.displayName ?: chat?.name ?: "Unknown"
 
