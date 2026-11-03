@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
 
 @Entity(
     tableName = "messages",
@@ -24,7 +23,6 @@ import kotlinx.serialization.Serializable
     ],
     indices = [Index("chatId"), Index("senderId"), Index("timestamp")]
 )
-@Serializable
 data class Message(
     @PrimaryKey
     val id: String, // UUID
