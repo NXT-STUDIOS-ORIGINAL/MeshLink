@@ -152,9 +152,8 @@ class SettingsViewModel(
     }
 
     fun getNetworkState(): String {
-        return when (networkManager.networkState) {
-            // This would need proper state observation
-            // Simplified for now
-        } -> "Unknown"
+        // networkManager.networkState is a Flow, cannot use in when expression directly
+        // Return placeholder until proper state observation is implemented
+        return "Unknown"
     }
 }
