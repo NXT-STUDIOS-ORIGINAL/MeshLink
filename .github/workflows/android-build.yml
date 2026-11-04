@@ -17,8 +17,8 @@ jobs:
     timeout-minutes: 45
 
     env:
-      ANDROID_HOME: ${{ runner.workspace }}/android-sdk
-      ANDROID_SDK_ROOT: ${{ runner.workspace }}/android-sdk
+      ANDROID_HOME: ${{ github.workspace }}/android-sdk
+      ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
 
     steps:
       # 1. Checkout repository
