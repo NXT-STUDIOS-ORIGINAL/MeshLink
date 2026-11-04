@@ -121,13 +121,7 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
 fi
 
 # Split up the JVM_OPTS And GRADLE_OPTS values into an array, following the shell quoting and substitution rules
-function splitJvmOpts() {
-    JVM_OPTS=()
-    for opt in "$@" ; do
-        JVM_OPTS[${#JVM_OPTS[*]}]="$opt"
-    done
-}
+# POSIX-compatible version (no bash arrays)
+set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS
 
-splitJvmOpts $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS
-
-exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
+exec "$JAVACMD" "$@" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
