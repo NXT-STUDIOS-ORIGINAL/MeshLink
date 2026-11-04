@@ -14,7 +14,11 @@ jobs:
   build:
     name: Build Debug APK
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
+
+    env:
+      ANDROID_HOME: ${{ runner.workspace }}/android-sdk
+      ANDROID_SDK_ROOT: ${{ runner.workspace }}/android-sdk
 
     steps:
       # 1. Checkout repository
@@ -29,21 +33,49 @@ jobs:
           java-version: '17'
           cache: gradle
 
-      # 3. Set up Android SDK
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v4
-        with:
-          cmdline-tools-version: '15859902'
-          packages: |
-            platforms;android-34
-            build-tools;34.0.0
-            platform-tools
+      # 3. Install Android SDK command-line tools manually
+      - name: Install Android SDK command-line tools
+        run: |
+          set -euo pipefail
+          mkdir -p "${ANDROID_HOME}/cmdline-tools"
+          cd "${ANDROID_HOME}/cmdline-tools"
+          # Download latest Linux command-line tools from Google
+          curl -fsSL -o cmdline-tools.zip "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip"
+          unzip -q cmdline-tools.zip
+          # The extracted folder is "cmdline-tools", move it to "latest"
+          mv cmdline-tools latest
+          rm cmdline-tools.zip
+          echo "ANDROID_HOME=${ANDROID_HOME}" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}" >> $GITHUB_ENV
+          echo "${ANDROID_HOME}/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "${ANDROID_HOME}/platform-tools" >> $GITHUB_PATH
+          echo "${ANDROID_HOME}/build-tools/34.0.0" >> $GITHUB_PATH
 
-      # 4. Build Debug APK using project Gradle wrapper
+      # 4. Accept SDK licenses and install packages
+      - name: Accept SDK licenses and install packages
+        run: |
+          set -euo pipefail
+          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses
+          "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" \
+            "platforms;android-34" \
+            "build-tools;34.0.0" \
+            "platform-tools"
+
+      # 5. Verify SDK installation
+      - name: Verify SDK installation
+        run: |
+          set -euo pipefail
+          echo "ANDROID_HOME=${ANDROID_HOME}"
+          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}"
+          ls -la "${ANDROID_HOME}/"
+          ls -la "${ANDROID_HOME}/cmdline-tools/latest/bin/"
+          "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --list_installed | head -20
+
+      # 6. Build Debug APK using project Gradle wrapper
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon --stacktrace
 
-      # 5. Upload Debug APK
+      # 7. Upload Debug APK
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
@@ -52,7 +84,7 @@ jobs:
           retention-days: 7
           if-no-files-found: error
 
-      # 6. Upload build reports
+      # 8. Upload build reports
       - name: Upload Build Reports
         uses: actions/upload-artifact@v4
         if: always()
