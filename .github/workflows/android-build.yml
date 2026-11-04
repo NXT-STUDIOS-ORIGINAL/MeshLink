@@ -33,10 +33,10 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 34
-          ndk-version: r26c
-          build-tools-version: 34.0.0
-          cmdline-tools-version: latest
+          packages: |
+            platforms;android-34
+            build-tools;34.0.0
+            platform-tools
 
       # 4. Build Debug APK using project Gradle wrapper
       - name: Build Debug APK
