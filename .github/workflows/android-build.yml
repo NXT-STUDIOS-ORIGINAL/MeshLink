@@ -76,7 +76,7 @@ jobs:
           ls -la "${ANDROID_HOME}/cmdline-tools/latest/bin/"
           "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --list_installed | head -20
 
-      # 6. Build Debug APK using project Gradle wrapper
+      # 7. Build Debug APK using project Gradle wrapper
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon --stacktrace
 
