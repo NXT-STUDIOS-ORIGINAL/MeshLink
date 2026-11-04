@@ -57,10 +57,25 @@ jobs:
 
       # 4. Accept Android SDK licenses
       - name: Accept Android SDK licenses
+        env:
+          SDKMANAGER: ${{ github.workspace }}/android-sdk/cmdline-tools/latest/bin/sdkmanager
         run: |
           set -euo pipefail
 
-          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses
+          mkdir -p "${ANDROID_HOME}/licenses"
+
+          for license in \
+            android-sdk-license \
+            android-sdk-preview-license \
+            android-googletv-license \
+            android-sdk-arm-dbt-license \
+            google-gdk-license \
+            intel-android-extra-license
+          do
+            touch "${ANDROID_HOME}/licenses/${license}"
+          done
+
+          "${SDKMANAGER}" --licenses
 
       # 5. Install required Android SDK packages
       - name: Install Android SDK packages
