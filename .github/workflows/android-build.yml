@@ -31,13 +31,13 @@ jobs:
 
       # 3. Set up Android SDK
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
         with:
+          cmdline-tools-version: '15859902'
           packages: |
             platforms;android-34
             build-tools;34.0.0
             platform-tools
-            cmdline-tools;latest
 
       # 4. Build Debug APK using project Gradle wrapper
       - name: Build Debug APK
